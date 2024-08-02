@@ -76,7 +76,7 @@ kubectl port forward {{pod-name}} -n jenkins {{local-port}}:8080
 http://localhost:{{local-port}}
 
 #### Logging in first time you will be prompted to:
-![jenkis-first-login](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/jenkins-first-login.png?raw=true
+![jenkis-first-login](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/jenkins-first-login.png?raw=true)
 
 Obtain the password via:
 (Use the pod name as found above)
@@ -134,7 +134,7 @@ kubectl apply -f token.yaml
 kubectl get secrets --namespace jenkins
 kubectl describe secret jenkins-secret -n jenkins
 ```
-![jenkis-secret](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/k8s-secret-jenkins.png?raw=true
+![jenkis-secret](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/k8s-secret-jenkins.png?raw=true)
 NB: COPY THE **TOKEN** FOR NEXT STEP
 
 #### Obtain internal IP of Jenkins pod, save the **IP**
