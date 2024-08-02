@@ -70,3 +70,30 @@ kubectl port forward {{pod-name}} -n jenkins {{local-port}}:8080
 
 #### Naviage to browser and access Jenkins via
 http://localhost:{{local-port}}
+
+#### Logging in first time you will be prompted to:
+![jenkis-first-login](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/jenkins-first-login.png?raw=true
+
+Obtain the password via:
+(Use the pod name as found above)
+```bash
+kubectl logs {{pod-name}} -n jenkins
+
+*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required.
+An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+94b73ef6578c4b4692a157f768b2cfef
+
+This may also be found at:
+/var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+```
+
