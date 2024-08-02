@@ -1,4 +1,7 @@
 # Installation for Jenkins in k8s local cluster
+<sub>This is an example for running Jenkins locally within k8s & creating
+and agent with the Kubernetes plugin within that same cluster, each agent
+will be a pod.</sub>
 
 #### [Create a local cluster](https://docs.rancherdesktop.io/getting-started/installation/)
 
@@ -96,4 +99,25 @@ This may also be found at:
 *************************************************************
 *************************************************************
 ```
+#### Plugins
+Select: Install suggested plugins
+
+Enter required fields: Username, Password, Confirm Password, Full name, E-mail address
+
+Leave default Jenkins URL: as http://localhost:{{local-port}}/ (same as kubectl port-forward address specified earlier via browser)
+
+Save & Finish
+Select Start Using Jenkins
+
+#### More Plugins:
+install another:
+https://plugins.jenkins.io/kubernetes/
+1. Navigate to Manage Jenkins
+2. Plugins
+3. Available Plugins
+4. Search for Kubernetes
+5. Select the first one, or one named Kubernetes ONLY(Installs several plugins)
+6. Toggle the checkbox & click Install
+
+#### Add a new agent
 
