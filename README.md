@@ -134,7 +134,7 @@ kubectl apply -f token.yaml
 kubectl get secrets --namespace jenkins
 kubectl describe secret jenkins-secret -n jenkins
 ```
-![jenkis-secret](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/k8s-secret-jenkins.png?raw=true)
+![jenkis-secret](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/k8s-secret-token.png?raw=true)
 NB: COPY THE **TOKEN** FOR NEXT STEP
 
 #### Obtain internal IP of Jenkins pod, save the **IP**
