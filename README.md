@@ -1,7 +1,8 @@
 # Installation for Jenkins in k8s local cluster
 <sub>This is an example for running Jenkins locally within k8s & creating
 and agent with the Kubernetes plugin within that same cluster, each agent
-will be a pod.</sub>
+will be a pod. Different rules apply for connecting from Docker to
+k8s.</sub>
 
 #### [Create a local cluster](https://docs.rancherdesktop.io/getting-started/installation/)
 
@@ -120,4 +121,81 @@ https://plugins.jenkins.io/kubernetes/
 6. Toggle the checkbox & click Install
 
 #### Add a new agent
+1. Select Manage Jenkins
+2. Select Clouds
+3. Select New cloud
+4. enter Cloud name as k8s
+5. Toggle Kubernetes
+6. Click Create
+
+#### Create a secret/token for access to be used by Jenkins connected to **jenkins-admin** service account
+```bash
+kubectl apply -f token.yaml
+kubectl get secrets --namespace jenkins
+kubectl describe secret jenkins-secret -n jenkins
+```
+![jenkis-secret](https://github.com/tlgevers/local-jenkins-k8s/blob/main/images/k8s-secret-jenkins.png?raw=true
+NB: COPY THE **TOKEN** FOR NEXT STEP
+
+#### Obtain internal IP of Jenkins pod, save the **IP**
+```bash
+kubectl describe pod {{pod-name}} -n jenkins
+```
+
+#### Complete the k8s(or selected name) Configuration
+1. Toggle Disable https certificate key
+2. Set Kubernetes Namespace to jenkins
+3. Create Credentials by clicking Add, then Jenkins
+4. Select Secret Text
+5. Leave Domain
+6. Set secret to **TOKEN** from previous step
+7. Set ID to jenkins-secret
+8. Click Add
+9. Set Jenkins URL to Internal IP Address to the Master Jenkins pod **IP** obtained in previous step(communication between pods is permitted within the same namespace)
+10. Click Save
+
+#### Create a test Job:
+1. Click + New Item
+2. Enter an item name
+3. Select Pipeline
+4. Set the pipeline script as follows:
+
+```
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          namespace: jenkins
+        spec:
+          serviceAccount: jenkins-admin
+          serviceAccountName: jenkins-admin
+          containers:
+          - name: maven
+            image: maven:alpine
+            command:
+            - cat
+            tty: true
+        '''
+    }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        container('maven') {
+          sh 'mvn -version'
+        }
+      }
+    }
+  }
+}
+```
+
+5. Click Save
+6. Build Now
+7. Watch Build History
+8. Select the #number of the build fo results
+9. Green is successful!
 
