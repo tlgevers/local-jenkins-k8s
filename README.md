@@ -152,7 +152,9 @@ kubectl describe pod {{pod-name}} -n jenkins
 7. Set ID to jenkins-secret
 8. Click Add
 9. Set Jenkins URL to Internal IP Address to the Master Jenkins pod **IP** obtained in previous step(communication between pods is permitted within the same namespace)
-10. Click Save
+**http://internal-ip:8080**
+NB! Make sure to set the port as this is the private http port
+11. Click Save
 
 #### Create a test Job:
 1. Click + New Item
