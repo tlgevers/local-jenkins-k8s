@@ -69,7 +69,7 @@ kubectl get pods -n jenkins
 3. Update {{local-port}} with actual local target port available
 ```bash
 kubectl get pods -n jenkins | awk '{print $1}'
-kubectl port forward {{pod-name}} -n jenkins {{local-port}}:8080
+kubectl port-forward {{pod-name}} -n jenkins {{local-port}}:8080
 ```
 
 #### Naviage to browser and access Jenkins via
